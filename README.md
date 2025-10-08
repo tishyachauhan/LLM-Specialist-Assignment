@@ -125,6 +125,53 @@ PORT=8000
 | `MAX_CONTEXT_CHUNKS` | Chunks for LLM context | `5` |
 
 ---
+## 🔒 Security & Legal Notice
+
+### 🛡️ API Key Protection
+**CRITICAL:** The API keys in the `.env` file are placeholders. You must:
+
+- ✅ Replace with your own valid API keys  
+- ✅ Never commit real API keys to public repositories  
+- ✅ Keep your API keys confidential  
+- ✅ Regenerate keys immediately if exposed  
+
+---
+
+### ⚖️ Terms of Use
+This software is provided for **educational and legitimate development purposes only.**
+
+#### Legal Disclaimer:
+- API keys are **personal credentials** tied to your account.  
+- Misuse, unauthorized sharing, or abuse of API keys may result in:
+  - ❌ Account suspension or termination by service providers  
+  - ⚠️ Legal action under applicable laws and terms of service  
+  - 💰 Financial liability for unauthorized usage  
+
+#### Users are solely responsible for:
+- 🔐 Securing their API credentials  
+- 📜 Complying with **Pinecone** and **Google API** terms of service  
+- 💳 All costs incurred through API usage  
+- 🚫 Any misuse or unauthorized access  
+
+---
+
+### 📘 By using this software, you agree to:
+- Use API keys **responsibly and ethically**  
+- Comply with **all applicable laws and regulations**  
+- Accept **full responsibility** for your API usage  
+- Indemnify the project authors from **any liability** arising from your use  
+
+---
+
+### 🌐 Service Provider Terms
+Please review and comply with:
+- [Pinecone Terms of Service](https://www.pinecone.io/terms/)  
+- [Google Cloud Terms of Service](https://cloud.google.com/terms)  
+- [Google AI/ML Terms](https://ai.google.dev/terms)  
+
+---
+
+🚨 **Unauthorized or malicious use of this system may result in civil and criminal penalties.**
 
 ## API Endpoints
 
