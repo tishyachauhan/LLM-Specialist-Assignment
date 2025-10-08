@@ -105,4 +105,4 @@ dmypy.json
 # Environment variables (REMOVED - we're pushing .env with placeholder keys)
 # .env
 
-# Keep .env in repository but remember to use placeholder keys only!
+# Keep .env in repository but remember to use placeholder keys only!.env
