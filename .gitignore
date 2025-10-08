@@ -1,6 +1,3 @@
-# ============================================================================
-# FILE 1: .gitignore
-# ============================================================================
 # Python
 __pycache__/
 *.py[cod]
@@ -22,19 +19,17 @@ wheels/
 *.egg-info/
 .installed.cfg
 *.egg
+MANIFEST
 
 # Virtual Environment
 venv/
 ENV/
 env/
 .venv
+env.bak/
+venv.bak/
 
-# Environment Variables
-.env
-.env.local
-.env.production
-
-# Database
+# Database files (runtime generated)
 *.db
 *.db-journal
 *.sqlite
@@ -48,15 +43,19 @@ data/
 *.swo
 *~
 .DS_Store
+Thumbs.db
 
 # Logs
 *.log
 logs/
+*.log.*
 
 # Testing
 .pytest_cache/
 .coverage
 htmlcov/
+.tox/
+.hypothesis/
 test_data/
 
 # Docker
@@ -66,3 +65,44 @@ docker-compose.override.yml
 *.tmp
 temp/
 tmp/
+*.bak
+*.swp
+
+# OS specific
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Desktop.ini
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# Python distribution / packaging
+.Python
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Unit test / coverage reports
+htmlcov/
+.coverage
+.coverage.*
+nosetests.xml
+coverage.xml
+*.cover
+.hypothesis/
+
+# mypy
+.mypy_cache/
+.dmypy.json
+dmypy.json
+
+# Pyre type checker
+.pyre/
+
+# Environment variables (REMOVED - we're pushing .env with placeholder keys)
+# .env
+
+# Keep .env in repository but remember to use placeholder keys only!

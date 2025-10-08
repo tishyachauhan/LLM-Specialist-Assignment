@@ -798,13 +798,20 @@ class GeminiLLMModule:
         ])
 
         # Create prompt
-        prompt = f"""You are a helpful AI assistant. Answer the user's question based ONLY on the provided context from documents.
+        prompt = prompt = f"""
+You are a helpful and intelligent AI assistant. Your primary task is to answer the user's question based **only** on the information provided in the context below.
 
-Rules:
-- Be accurate, concise, and relevant
-- If the answer is not in the context, say "I don't have enough information to answer that question."
-- Cite the source document when possible
-- Don't make up information
+If the context appears **incomplete, irrelevant, or empty (no retrieved data or 'data zero')**, do **not** fabricate an answer. 
+Instead, clearly tell the user that the retrieved data did not provide relevant information.
+
+Then, politely ask:
+> "Would you like me to generate new, up-to-date data from the internet using Gemini to help answer your question?"
+
+Guidelines:
+- Stay strictly factual when context is present.
+- If no context or unclear context, follow the fallback behavior above.
+- Be concise, accurate, and avoid speculation.
+- When citing context, paraphrase naturally — do not copy text verbatim.
 
 Context from documents:
 {context}
@@ -983,24 +990,25 @@ class CompleteRAGPipeline:
         # Search in Pinecone
         search_results = self.vectorstore.search(query_embedding, top_k, filter)
 
-        # Prepare response
+        # Generate LLM response if requested
+        if use_llm and search_results:
+            llm_answer = self.llm.generate_response(query, search_results)
+            final_response = llm_answer
+        else:
+            final_response = "No relevant context found to answer the query."
+
+        # Calculate processing time
+        processing_time_ms = (datetime.utcnow() - start_time).total_seconds() * 1000
+
+        # Prepare full response data for database storage
         response_data = {
             'query_id': query_id,
             'query': query,
             'num_results': len(search_results),
-            'results': search_results
+            'results': search_results,
+            'llm_response': final_response if use_llm else None,
+            'processing_time_ms': processing_time_ms
         }
-
-        # Generate LLM response if requested
-        if use_llm and search_results:
-            llm_answer = self.llm.generate_response(query, search_results)
-            response_data['llm_response'] = llm_answer
-        else:
-            response_data['llm_response'] = None
-
-        # Calculate processing time
-        processing_time_ms = (datetime.utcnow() - start_time).total_seconds() * 1000
-        response_data['processing_time_ms'] = processing_time_ms
 
         # Save query to database
         self.db.insert_query({
@@ -1015,7 +1023,7 @@ class CompleteRAGPipeline:
         for result in search_results:
             self.db.insert_query_result(query_id, result['chunk_id'], result['score'])
 
-        return response_data
+        return {'response': final_response, 'model': GEMINI_MODEL}
 
 
 # Initialize pipeline
